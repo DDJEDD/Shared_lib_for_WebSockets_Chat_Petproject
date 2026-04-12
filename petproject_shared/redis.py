@@ -9,7 +9,7 @@ class RedisService:
         data = {"username": username}
         if login:
             data["login"] = login
-
+        await self.r.set(f"username:{username}", user_id)
         await self.r.hset(f"user:{user_id}", mapping=data)
 
     async def check_user_exists(self, user_id: int):
@@ -18,3 +18,5 @@ class RedisService:
     async def get_user(self, user_id: int):
         data = await self.r.hgetall(f"user:{user_id}")
         return data
+    async def get_id_by_username(self, username: str):
+        return await self.r.get(f"username:{username}")
