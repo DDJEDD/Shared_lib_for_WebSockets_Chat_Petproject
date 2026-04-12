@@ -18,8 +18,8 @@ class RedisService:
     async def get_user(self, user_id: int):
         data = await self.r.hgetall(f"user:{user_id}")
         return data
-    async def get_id_by_username(self, username: str):
-        return await self.r.get(f"username:{username}")
+    async def get_id_by_login(self, login: str):
+        return await self.r.get(f"login:{login}")
 
     async def update_username(self, user_id: int, old_username: str, new_username: str):
         if old_username:
