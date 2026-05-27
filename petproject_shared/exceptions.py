@@ -10,3 +10,5 @@ class UserNotFound(RedisError):
     pass
 class TokenExpiredError(JWTError):
     pass
+class AccessTokenExpired(JWTError):
+    pass

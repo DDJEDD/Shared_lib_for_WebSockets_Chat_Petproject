@@ -1,5 +1,5 @@
 import jwt
-from .exceptions import TokenExpiredError
+from .exceptions import TokenExpiredError, AccessTokenExpired
 
 class JWTDecode:
     """
@@ -21,4 +21,11 @@ class JWTDecode:
 
     def get_session_id(self,payload) -> str:
         return payload.get("sub")
+    def get_current_user(self, access_token: str):
+        try:
+            payload = self.decode_token(access_token, True)
+        except TokenExpiredError:
+            raise AccessTokenExpired()
+        user_id = self.get_user_id(payload)
+        return user_id
 
