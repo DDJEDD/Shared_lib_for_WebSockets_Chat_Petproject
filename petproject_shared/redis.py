@@ -1,9 +1,9 @@
 import redis.asyncio as redis
 
 class RedisService:
-    def __init__(self, host, port, db):
+    def __init__(self, redis_service):
 
-        self.r = redis.Redis(host=host, port=port, db=db, decode_responses=True)
+        self.r = redis_service
 
     async def set_user(self, user_id: int, username: str, login: str = None):
         data = {"username": username}
